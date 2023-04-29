@@ -1,1 +1,20 @@
 # rust_sorting
+
+This is a collection of sorting code written in Rust, which highlights some differences between Rust 
+and other languages especially when it comes to things like ownership.
+
+
+## How to use
+
+`main.rs` includes some code that runs the simplest benchmark possible, just creates a vector of size x and then 
+runs several of the sorting algoritms on it, printing out how long it took to sort and making some assertions.
+
+For example, when running with `num_test_elements = 10_000_000`, we get the following output:
+
+> serial sort results using built-in sort, is sorted: true, time elapsed: 3026 milliseconds
+>
+> parallel sort results using built-in sort, is sorted: true, time elapsed: 1091 milliseconds
+>
+> serial mergesort results, is sorted: true, time elapsed: 12348 milliseconds
+>
+> parallel mergesort results, is sorted: true, time elapsed: 5640 milliseconds
