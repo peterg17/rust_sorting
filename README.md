@@ -4,12 +4,12 @@ This is a collection of sorting code written in Rust, which highlights some diff
 and other languages especially when it comes to things like ownership.
 
 
-## How to use
+## How to Run Code
 
 `main.rs` includes some code that runs the simplest benchmark possible, just creates a vector of size x and then 
 runs several of the sorting algoritms on it, printing out how long it took to sort and making some assertions.
 
-For example, when running with `num_test_elements = 10_000_000`, we get the following output:
+You can reproduce the results by simply running `cargo run` in the terminal and should see something like the output below:
 
 > serial sort results using built-in sort, is sorted: true, time elapsed: 3026 milliseconds
 >
@@ -18,3 +18,7 @@ For example, when running with `num_test_elements = 10_000_000`, we get the foll
 > serial mergesort results, is sorted: true, time elapsed: 12348 milliseconds
 >
 > parallel mergesort results, is sorted: true, time elapsed: 5640 milliseconds
+
+# How to Run Tests
+
+`cargo test`
