@@ -1,3 +1,5 @@
+use std::thread;
+
 pub mod helpers;
 
 pub fn merge_sort(nums: &mut [i64], left: usize, right: usize) {
@@ -13,12 +15,14 @@ pub fn merge_sort(nums: &mut [i64], left: usize, right: usize) {
 pub fn parallel_mergesort(data: &mut [i64], threads: usize) {
     let chunks = std::cmp::min(data.len(), threads);
     let mut chunk_lens = Vec::new();
-    let _ = crossbeam::scope(|scope| {
-        for slice in data.chunks_mut(data.len() / chunks) {
+    let data_len = data.len();
+    // let _ = crossbeam::scope(|scope| {
+    thread::scope(|s| {
+        for slice in data.chunks_mut(data_len / chunks) {
             let slice_len = slice.len();
             chunk_lens.push(slice_len);
             // println!("[parallel_mergesort] start: {:?}, end: {:?}", start, end);
-            scope.spawn(move |_| merge_sort(slice, 0, slice_len - 1));
+            s.spawn(move || merge_sort(slice, 0, slice_len - 1));
         }
     });
 
@@ -95,9 +99,9 @@ pub fn insertion_sort(nums: &mut Vec<i64>) {
 
 pub fn parallel_sort(data: &mut [i64], threads: usize) {
     let chunks = std::cmp::min(data.len(), threads);
-    let _ = crossbeam::scope(|scope| {
+    let _ = thread::scope(|scope| {
         for slice in data.chunks_mut(data.len() / chunks) {
-            scope.spawn(move |_| serial_sort(slice));
+            scope.spawn(move || serial_sort(slice));
         }
     });
     merge_placeholder(data, chunks);
