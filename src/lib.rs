@@ -5,7 +5,6 @@ pub mod helpers;
 pub fn merge_sort(nums: &mut [i64], left: usize, right: usize) {
     if left < right {
         let middle = left + (right - left) / 2;
-        // println!("[merge_sort] nums: {:?}, left: {:?} , right: {:?}", nums, left, right);
         merge_sort(nums, left, middle);
         merge_sort(nums, middle + 1, right);
         merge(nums, left, middle, right);
@@ -16,12 +15,10 @@ pub fn parallel_mergesort(data: &mut [i64], threads: usize) {
     let chunks = std::cmp::min(data.len(), threads);
     let mut chunk_lens = Vec::new();
     let data_len = data.len();
-    // let _ = crossbeam::scope(|scope| {
     thread::scope(|s| {
         for slice in data.chunks_mut(data_len / chunks) {
             let slice_len = slice.len();
             chunk_lens.push(slice_len);
-            // println!("[parallel_mergesort] start: {:?}, end: {:?}", start, end);
             s.spawn(move || merge_sort(slice, 0, slice_len - 1));
         }
     });
@@ -29,7 +26,6 @@ pub fn parallel_mergesort(data: &mut [i64], threads: usize) {
     let mut middle: usize = 0;
     let mut end: usize = chunk_lens[0] - 1;
     for cl in chunk_lens {
-        // println!("[parallel_mergesort] start: {:?}, middle: {:?}, end: {:?}", 0, middle, end);
         merge(data, 0, middle, end);
         middle = end;
         end = end + cl;

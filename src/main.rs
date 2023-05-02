@@ -3,7 +3,7 @@ use sorting::helpers;
 use std::time::Instant;
 
 fn main() {
-    let num_test_elements: usize = 10_000_000;
+    let num_test_elements: usize = 100;
     let test_vec = helpers::random_vec(num_test_elements);
     let mut nums: Vec<i64> = vec![5, 3, 20, 1, 4];
     sorting::insertion_sort(&mut nums);
